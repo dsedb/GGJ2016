@@ -6,8 +6,9 @@ public class Player : MonoBehaviour {
 	public GameObject bulletRed_;
 	public GameObject bulletBlue_;
 	public GameObject bulletGreen_;
+	public LowPanelController low_panel_controller_;
 
-	enum BulletType {
+	public enum BulletType {
 		Red,
 		Blue,
 		Green,
@@ -35,6 +36,9 @@ public class Player : MonoBehaviour {
 
 	void Start()
 	{
+		var go = GameObject.Find("LowPanel");
+		Debug.Assert(go != null);
+		low_panel_controller_ = go.GetComponent<LowPanelController>();
 		select_y();
 	}
 
@@ -45,6 +49,7 @@ public class Player : MonoBehaviour {
 		enelemnt_y_.setSelected(true);
 		enelemnt_h_.setSelected(false);
 		enelemnt_n_.setSelected(false);
+		low_panel_controller_.setBulletType(bullet_type_);
 	}
 
 	private void select_h()
@@ -54,6 +59,7 @@ public class Player : MonoBehaviour {
 		enelemnt_y_.setSelected(false);
 		enelemnt_h_.setSelected(true);
 		enelemnt_n_.setSelected(false);
+		low_panel_controller_.setBulletType(bullet_type_);
 	}
 
 	private void select_n()
@@ -63,6 +69,7 @@ public class Player : MonoBehaviour {
 		enelemnt_y_.setSelected(false);
 		enelemnt_h_.setSelected(false);
 		enelemnt_n_.setSelected(true);
+		low_panel_controller_.setBulletType(bullet_type_);
 	}
 
 	private void fire(Vector3 fire_point)
