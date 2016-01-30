@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public SceneType scene_type_;
 	public GameObject[] enemy_prefabs_;
 	private EnemySpawnData enemy_spawn_data_;
+	private ScoreManager score_manager_;
 	private float start_time_;
 
 	void Awake()
@@ -57,8 +58,12 @@ public class GameManager : MonoBehaviour {
 			
 				// game start
 				case SceneType.Main:
+
+					if (score_manager_ == null) {
+						score_manager_ = GameObject.Find("ScorePanel").GetComponent<ScoreManager>();
+					}
+					score_manager_.setup(enemy_spawn_data_.getTotalNum());
 					start_time_ = Time.time;
-					
 					for (;;) {
 						float game_time = Time.time - start_time_;
 						List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time);
@@ -77,5 +82,15 @@ public class GameManager : MonoBehaviour {
 
 			yield return null;
 		}
+	}
+
+	public void incWin()
+	{
+		score_manager_.incWin();
+	}
+
+	public void incLose()
+	{
+		score_manager_.incLose();
 	}
 }

@@ -60,9 +60,11 @@ public class Enemy : MonoBehaviour {
 	{
 		var bullet = other.GetComponent<Bullet>();
 		if (element_type_ == bullet.getElementType()) {
+			GameManager.Instance.incWin();
 			Destroy(gameObject);
 		} else {
 			Debug.Log("wrong element!");
+			GameManager.Instance.incLose(); // tmp
 			StartCoroutine(penalty_move());
 		}
     }

@@ -60,13 +60,18 @@ public class EnemySpawnData
 		time += 1f;
 		float speed = 2f;
 		for (int i = 0; i < 10; ++i) {
-			list_.Add(unit.initialize(time, 0, speed, ElementType.Red));
+			list_.Add(unit.initialize(time, 0, speed, (ElementType)Random.Range(0f, 3f)));
 			time += 1f;
-			list_.Add(unit.initialize(time, 1, speed, ElementType.Blue));
+			list_.Add(unit.initialize(time, 1, speed, (ElementType)Random.Range(0f, 3f)));
 			time += 1f;
-			list_.Add(unit.initialize(time, 2, speed, ElementType.Green));
+			list_.Add(unit.initialize(time, 2, speed, (ElementType)Random.Range(0f, 3f)));
 			time += 1f;
 		}
+	}
+
+	public int getTotalNum()
+	{
+		return list_.Count;
 	}
 
 	public List<EnemySpawnDataUnit> getSpawnList(float game_time)
