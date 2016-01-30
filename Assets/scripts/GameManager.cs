@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
 			float game_time = Time.time - start_time_;
 			List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time);
 			foreach (var spawn in spawn_list) {
-				var go = Instantiate(enemy_, spawn.position_, Quaternion.identity) as GameObject;
+				var go = Instantiate(enemy_, spawn.position_, Quaternion.Euler(0, 0, 180)) as GameObject;
 				var enemy = go.GetComponent<Enemy>();
 				enemy.setSpeed(spawn.speed_);
 			}
