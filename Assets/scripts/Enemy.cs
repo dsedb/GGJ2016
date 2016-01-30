@@ -22,6 +22,10 @@ public class Enemy : MonoBehaviour {
 	IEnumerator loop()
 	{
 		for (;;) {
+			if (transform.position.z < -1f) {
+				Destroy(this.gameObject);
+				yield return null;
+			}
 			yield return null;
 		}
 	}
