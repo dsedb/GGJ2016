@@ -4,14 +4,25 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
+	public static GameManager Instance = null;
+	public enum SceneType {
+		Title,
+		Main,
+	}
+	public SceneType scene_type_;
 	public GameObject enemy_;
 	private EnemySpawnData enemy_spawn_data_;
 	private float start_time_;
 
 	void Awake()
 	{
-        DontDestroyOnLoad(transform.gameObject);
-		enemy_spawn_data_ = new EnemySpawnData();
+		if (Instance == null) {
+			Instance = this;
+			DontDestroyOnLoad(transform.gameObject);
+			enemy_spawn_data_ = new EnemySpawnData();
+		} else {
+			Destroy(gameObject);
+		}
     }	
 
 	void Start()
@@ -24,17 +35,41 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator main_loop()
 	{
-		// game loop
-		start_time_ = Time.time;
-
 		for (;;) {
-			float game_time = Time.time - start_time_;
-			List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time);
-			foreach (var spawn in spawn_list) {
-				var go = Instantiate(enemy_, spawn.position_, Quaternion.Euler(0, 0, 180)) as GameObject;
-				var enemy = go.GetComponent<Enemy>();
-				enemy.setSpeed(spawn.speed_);
+
+			switch (scene_type_) {
+				// title loop
+				case SceneType.Title:
+					for (;;) {
+						if (Input.anyKey) {
+							Debug.Log("Input.anyKey");
+							UnityEngine.SceneManagement.SceneManager.LoadScene("main", 
+																			   UnityEngine.SceneManagement.LoadSceneMode.Single);
+							break;
+						}
+						yield return null;
+					}
+					scene_type_ = SceneType.Main;
+				break;
+			
+				// game start
+				case SceneType.Main:
+					start_time_ = Time.time;
+					
+					for (;;) {
+						float game_time = Time.time - start_time_;
+						List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time);
+						foreach (var spawn in spawn_list) {
+							var go = Instantiate(enemy_, spawn.position_, Quaternion.Euler(0, 0, 180)) as GameObject;
+							var enemy = go.GetComponent<Enemy>();
+							enemy.setSpeed(spawn.speed_);
+						}
+						yield return null;
+					}
+					scene_type_ = SceneType.Title;
+				break;
 			}
+
 			yield return null;
 		}
 	}
