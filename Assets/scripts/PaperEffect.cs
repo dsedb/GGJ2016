@@ -5,8 +5,8 @@ using System.Collections;
 [RequireComponent (typeof (MeshRenderer))]
 public class PaperEffect : MonoBehaviour
 {
-	private const float width = 1f;
-	private const float height = 3f;
+	private const float width = 0.667f;
+	private const float height = 2f;
 	private const int X_NUM = 16;
 	private const int Y_NUM = 32;
 

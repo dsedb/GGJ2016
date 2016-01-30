@@ -29,17 +29,17 @@ public struct EnemySpawnDataUnit
 	public EnemySpawnDataUnit initialize(float time, int lane_index, float speed, ElementType element_type)
 	{
 		const float fixed_y = 0.5f;
-		const float fixed_z = 15f;
+		const float fixed_z = 7.5f;
 		Vector3 position = new Vector3(-1f, fixed_y, fixed_z);
 		switch (lane_index) {
 			case 0:
-				position.x = -2f;
+				position.x = -1f;
 				break;
 			case 1:
 				position.x = 0f;
 				break;
 			case 2:
-				position.x = 2f;
+				position.x = 1f;
 				break;
 		}
 		return initialize(time, position, speed, element_type);
@@ -58,7 +58,7 @@ public class EnemySpawnData
 		var unit = new EnemySpawnDataUnit(0, Vector3.zero, 0f, ElementType.Red);
 		float time = 0f;
 		time += 1f;
-		float speed = 2f;
+		float speed = 1f;
 		for (int i = 0; i < 1; ++i) {
 			list_.Add(unit.initialize(time, 0, speed, (ElementType)Random.Range(0f, 3f)));
 			time += 1f;

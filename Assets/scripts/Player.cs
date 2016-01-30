@@ -35,9 +35,9 @@ public class Player : MonoBehaviour {
 	{
 		InPlay = false;
 		element_type_ = ElementType.Red;
-		fire_point_z_ = new Vector3(-2f, 0.5f, 0f);
+		fire_point_z_ = new Vector3(-1f, 0.5f, 0f);
 		fire_point_x_ = new Vector3( 0f, 0.5f, 0f);
-		fire_point_c_ = new Vector3( 2f, 0.5f, 0f);
+		fire_point_c_ = new Vector3( 1f, 0.5f, 0f);
 		enelemnt_red_ = GameObject.Find("ElementRed").GetComponent<ElementUI>();
 		enelemnt_blue_ = GameObject.Find("ElementBlue").GetComponent<ElementUI>();
 		enelemnt_green_ = GameObject.Find("ElementGreen").GetComponent<ElementUI>();

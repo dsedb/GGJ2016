@@ -4,7 +4,7 @@ using System.Collections;
 public class Bullet : MonoBehaviour {
 
 	private ElementType element_type_;
-	const float speed = 20f;
+	const float speed = 10f;
 
 	public void setElementType(ElementType element_type)
 	{
@@ -19,7 +19,7 @@ public class Bullet : MonoBehaviour {
 	{
 		transform.position += new Vector3(0, 0, speed) * Time.deltaTime;
 
-		if (transform.position.z > 30f) {
+		if (transform.position.z > 10f) {
 			Destroy(gameObject);
 		}
 	}
