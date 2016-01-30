@@ -4,7 +4,15 @@ using System.Collections;
 public class Enemy : MonoBehaviour {
 
 	public ElementType element_type_;
+	public AudioClip audioHit_;
+	public AudioClip audioGuard_;
+	private AudioSource audio_source_;
 	private Vector3 speed_;
+
+	void Awake()
+	{
+		audio_source_ = GetComponent<AudioSource>();
+	}
 
 	void Start ()
 	{
@@ -62,8 +70,12 @@ public class Enemy : MonoBehaviour {
 		var bullet = other.GetComponent<Bullet>();
 		if (element_type_ == bullet.getElementType()) {
 			GameManager.Instance.incWin();
-			Destroy(gameObject);
+			audio_source_.clip = audioHit_;
+			audio_source_.Play();
+			Destroy(gameObject, 0.5f);
 		} else {
+			audio_source_.clip = audioGuard_;
+			audio_source_.Play();
 			StartCoroutine(penalty_move());
 		}
     }

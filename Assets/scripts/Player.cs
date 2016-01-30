@@ -17,7 +17,9 @@ public class Player : MonoBehaviour {
 	public GameObject bulletGreen_;
 	public GameObject bulletBrown_;
 	public GameObject bulletPurple_;
+	public AudioClip audioFire_;
 
+	private AudioSource audio_source_;
 	private LowPanelController low_panel_controller_;
 	private ElementType element_type_;
 	private Vector3 fire_point_z_;
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour {
 	void Awake()
 	{
 		InPlay = false;
+		audio_source_ = GetComponent<AudioSource>();
 		element_type_ = ElementType.Red;
 		fire_point_z_ = new Vector3(-1f, 0.5f, 0f);
 		fire_point_x_ = new Vector3( 0f, 0.5f, 0f);
@@ -117,6 +120,8 @@ public class Player : MonoBehaviour {
 
 	private void fire(Vector3 fire_point)
 	{
+		audio_source_.clip = audioFire_;
+		audio_source_.Play();
 		var go = Instantiate(current_bullet_prefab_, fire_point, Quaternion.identity) as GameObject;
 		var bullet = go.GetComponent<Bullet>();
 		bullet.setElementType(element_type_);
