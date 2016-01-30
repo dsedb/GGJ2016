@@ -29,9 +29,11 @@ public class Player : MonoBehaviour {
 	private ElementUI enelemnt_brown_;
 	private ElementUI enelemnt_purple_;
 	private GameObject current_bullet_prefab_;
+	public bool InPlay { get; set; }
 	
 	void Awake()
 	{
+		InPlay = false;
 		element_type_ = ElementType.Red;
 		fire_point_z_ = new Vector3(-2f, 0.5f, 0f);
 		fire_point_x_ = new Vector3( 0f, 0.5f, 0f);
@@ -51,6 +53,7 @@ public class Player : MonoBehaviour {
 		low_panel_controller_ = go.GetComponent<LowPanelController>();
 		select_red();
 	}
+
 
 	private void select_red()
 	{
@@ -121,6 +124,9 @@ public class Player : MonoBehaviour {
 
 	void Update()
 	{
+		if (!InPlay) {
+			return;
+		}
 		if (Input.GetKeyDown(KeyCode.Z)) {
 			fire(fire_point_z_);
 		}

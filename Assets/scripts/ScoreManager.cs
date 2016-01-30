@@ -42,6 +42,11 @@ public class ScoreManager : MonoBehaviour {
 		target_lose_ratio_ = (float)lose_count_ / (float)total_num_;
 	}
 
+	public bool won()
+	{
+		return win_count_ >= lose_count_;
+	}
+
 	void Update()
 	{
 		win_scrollbar_.size = win_scrollbar_.size + (target_win_ratio_ - win_scrollbar_.size) * 0.1f;

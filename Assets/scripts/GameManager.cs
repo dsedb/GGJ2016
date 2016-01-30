@@ -14,14 +14,16 @@ public class GameManager : MonoBehaviour {
 	private EnemySpawnData enemy_spawn_data_;
 	private ScoreManager score_manager_;
 	private CameraDamageEffect camera_damage_effect_;
+	private WidgetActor message_actor_;
+	private WidgetActor score_actor_;
 	private float start_time_;
+	private Player player_;
 
 	void Awake()
 	{
 		if (Instance == null) {
 			Instance = this;
 			DontDestroyOnLoad(transform.gameObject);
-			enemy_spawn_data_ = new EnemySpawnData();
 		} else {
 			Destroy(gameObject);
 		}
@@ -47,7 +49,6 @@ public class GameManager : MonoBehaviour {
 				case SceneType.Title:
 					for (;;) {
 						if (Input.anyKey) {
-							Debug.Log("Input.anyKey");
 							UnityEngine.SceneManagement.SceneManager.LoadScene("main", 
 																			   UnityEngine.SceneManagement.LoadSceneMode.Single);
 							break;
@@ -59,18 +60,31 @@ public class GameManager : MonoBehaviour {
 			
 				// game start
 				case SceneType.Main:
-
 					if (score_manager_ == null) {
 						score_manager_ = GameObject.Find("ScorePanel").GetComponent<ScoreManager>();
 					}
 					if (camera_damage_effect_ == null) {
 						camera_damage_effect_ = GameObject.Find("Main Camera").GetComponent<CameraDamageEffect>();
 					}
+					if (message_actor_ == null) {
+						message_actor_ = GameObject.Find("MessagePanel").GetComponent<WidgetActor>();
+					}
+					if (score_actor_ == null) {
+						score_actor_ = GameObject.Find("ScorePanel").GetComponent<WidgetActor>();
+					}
+					if (player_ == null) {
+						player_ = GameObject.Find("player").GetComponent<Player>();
+					}
+					yield return null;
+					enemy_spawn_data_ = new EnemySpawnData();
 					score_manager_.setup(enemy_spawn_data_.getTotalNum());
 					start_time_ = Time.time;
+					message_actor_.beginMessage("START!");
+					player_.InPlay = true;
 					for (;;) {
 						float game_time = Time.time - start_time_;
-						List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time);
+						bool runout;
+						List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time, out runout);
 						foreach (var spawn in spawn_list) {
 							var go = Instantiate(enemy_prefabs_[(int)spawn.element_type_],
 												 spawn.position_,
@@ -79,8 +93,27 @@ public class GameManager : MonoBehaviour {
 							enemy.setup(spawn);
 						}
 						yield return null;
+						if (runout && GameObject.FindGameObjectsWithTag("Enemy").Length <= 0) {
+							break;
+						}
 					}
+					player_.InPlay = false;
+					yield return new WaitForSeconds(1);
+					message_actor_.beginMessage("FINISH!");
+					yield return new WaitForSeconds(1);
+					
+					score_actor_.beginResult();
+					yield return new WaitForSeconds(2);
+					if (score_manager_.won()) {
+						message_actor_.beginMessage("WIN!");
+					} else {
+						message_actor_.beginMessage("LOSE");
+					}
+					yield return new WaitForSeconds(2);
+
 					scene_type_ = SceneType.Title;
+					UnityEngine.SceneManagement.SceneManager.LoadScene("title", 
+																	   UnityEngine.SceneManagement.LoadSceneMode.Single);
 				break;
 			}
 

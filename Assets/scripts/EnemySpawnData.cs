@@ -59,7 +59,7 @@ public class EnemySpawnData
 		float time = 0f;
 		time += 1f;
 		float speed = 2f;
-		for (int i = 0; i < 10; ++i) {
+		for (int i = 0; i < 1; ++i) {
 			list_.Add(unit.initialize(time, 0, speed, (ElementType)Random.Range(0f, 3f)));
 			time += 1f;
 			list_.Add(unit.initialize(time, 1, speed, (ElementType)Random.Range(0f, 3f)));
@@ -74,7 +74,7 @@ public class EnemySpawnData
 		return list_.Count;
 	}
 
-	public List<EnemySpawnDataUnit> getSpawnList(float game_time)
+	public List<EnemySpawnDataUnit> getSpawnList(float game_time, out bool runout)
 	{
 		var spawn_list = new List<EnemySpawnDataUnit>();
 		int avoid_inifinity_loop_count = 0;
@@ -84,7 +84,6 @@ public class EnemySpawnData
 				spawn_list.Add(list_[current_index_]);
 				++current_index_;
 				if (current_index_ >= list_.Count) {
-					Debug.Log("SPAWN DATA runs out!");
 					break;
 				}
 			}
@@ -92,6 +91,7 @@ public class EnemySpawnData
 			if (avoid_inifinity_loop_count > 100)
 				break;
 		}
+		runout = (current_index_ >= list_.Count);
 		return spawn_list;
 	}
 }
