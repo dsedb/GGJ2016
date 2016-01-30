@@ -15,26 +15,32 @@ public class Player : MonoBehaviour {
 	public GameObject bulletRed_;
 	public GameObject bulletBlue_;
 	public GameObject bulletGreen_;
-	public LowPanelController low_panel_controller_;
+	public GameObject bulletBrown_;
+	public GameObject bulletPurple_;
 
+	private LowPanelController low_panel_controller_;
 	private ElementType element_type_;
+	private Vector3 fire_point_z_;
 	private Vector3 fire_point_x_;
 	private Vector3 fire_point_c_;
-	private Vector3 fire_point_v_;
-	private ElementUI enelemnt_y_;
-	private ElementUI enelemnt_h_;
-	private ElementUI enelemnt_n_;
+	private ElementUI enelemnt_red_;
+	private ElementUI enelemnt_blue_;
+	private ElementUI enelemnt_green_;
+	private ElementUI enelemnt_brown_;
+	private ElementUI enelemnt_purple_;
 	private GameObject current_bullet_prefab_;
 	
 	void Awake()
 	{
 		element_type_ = ElementType.Red;
-		fire_point_x_ = new Vector3(-2f, 0.5f, 0f);
-		fire_point_c_ = new Vector3( 0f, 0.5f, 0f);
-		fire_point_v_ = new Vector3( 2f, 0.5f, 0f);
-		enelemnt_y_ = GameObject.Find("ElementY").GetComponent<ElementUI>();
-		enelemnt_h_ = GameObject.Find("ElementH").GetComponent<ElementUI>();
-		enelemnt_n_ = GameObject.Find("ElementN").GetComponent<ElementUI>();
+		fire_point_z_ = new Vector3(-2f, 0.5f, 0f);
+		fire_point_x_ = new Vector3( 0f, 0.5f, 0f);
+		fire_point_c_ = new Vector3( 2f, 0.5f, 0f);
+		enelemnt_red_ = GameObject.Find("ElementRed").GetComponent<ElementUI>();
+		enelemnt_blue_ = GameObject.Find("ElementBlue").GetComponent<ElementUI>();
+		enelemnt_green_ = GameObject.Find("ElementGreen").GetComponent<ElementUI>();
+		enelemnt_brown_ = GameObject.Find("ElementBrown").GetComponent<ElementUI>();
+		enelemnt_purple_ = GameObject.Find("ElementPurple").GetComponent<ElementUI>();
 		current_bullet_prefab_ = bulletRed_;
 	}
 
@@ -43,36 +49,66 @@ public class Player : MonoBehaviour {
 		var go = GameObject.Find("LowPanel");
 		Debug.Assert(go != null);
 		low_panel_controller_ = go.GetComponent<LowPanelController>();
-		select_y();
+		select_red();
 	}
 
-	private void select_y()
+	private void select_red()
 	{
 		element_type_ = ElementType.Red;
 		current_bullet_prefab_ = bulletRed_;
-		enelemnt_y_.setSelected(true);
-		enelemnt_h_.setSelected(false);
-		enelemnt_n_.setSelected(false);
+		enelemnt_red_.setSelected(true);
+		enelemnt_blue_.setSelected(false);
+		enelemnt_green_.setSelected(false);
+		enelemnt_brown_.setSelected(false);
+		enelemnt_purple_.setSelected(false);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
-	private void select_h()
+	private void select_blue()
 	{
 		element_type_ = ElementType.Blue;
 		current_bullet_prefab_ = bulletBlue_;
-		enelemnt_y_.setSelected(false);
-		enelemnt_h_.setSelected(true);
-		enelemnt_n_.setSelected(false);
+		enelemnt_red_.setSelected(false);
+		enelemnt_blue_.setSelected(true);
+		enelemnt_green_.setSelected(false);
+		enelemnt_brown_.setSelected(false);
+		enelemnt_purple_.setSelected(false);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
-	private void select_n()
+	private void select_green()
 	{
 		element_type_ = ElementType.Green;
 		current_bullet_prefab_ = bulletGreen_;
-		enelemnt_y_.setSelected(false);
-		enelemnt_h_.setSelected(false);
-		enelemnt_n_.setSelected(true);
+		enelemnt_red_.setSelected(false);
+		enelemnt_blue_.setSelected(false);
+		enelemnt_green_.setSelected(true);
+		enelemnt_brown_.setSelected(false);
+		enelemnt_purple_.setSelected(false);
+		low_panel_controller_.setElementType(element_type_);
+	}
+
+	private void select_brown()
+	{
+		element_type_ = ElementType.Brown;
+		current_bullet_prefab_ = bulletBrown_;
+		enelemnt_red_.setSelected(false);
+		enelemnt_blue_.setSelected(false);
+		enelemnt_green_.setSelected(false);
+		enelemnt_brown_.setSelected(true);
+		enelemnt_purple_.setSelected(false);
+		low_panel_controller_.setElementType(element_type_);
+	}
+
+	private void select_purple()
+	{
+		element_type_ = ElementType.Purple;
+		current_bullet_prefab_ = bulletPurple_;
+		enelemnt_red_.setSelected(false);
+		enelemnt_blue_.setSelected(false);
+		enelemnt_green_.setSelected(false);
+		enelemnt_brown_.setSelected(false);
+		enelemnt_purple_.setSelected(true);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
@@ -85,23 +121,29 @@ public class Player : MonoBehaviour {
 
 	void Update()
 	{
+		if (Input.GetKeyDown(KeyCode.Z)) {
+			fire(fire_point_z_);
+		}
 		if (Input.GetKeyDown(KeyCode.X)) {
 			fire(fire_point_x_);
 		}
 		if (Input.GetKeyDown(KeyCode.C)) {
 			fire(fire_point_c_);
 		}
+		if (Input.GetKeyDown(KeyCode.Alpha4)) {
+			select_red();
+		}
+		if (Input.GetKeyDown(KeyCode.R)) {
+			select_blue();
+		}
+		if (Input.GetKeyDown(KeyCode.F)) {
+			select_green();
+		}
 		if (Input.GetKeyDown(KeyCode.V)) {
-			fire(fire_point_v_);
+			select_brown();
 		}
-		if (Input.GetKeyDown(KeyCode.Y)) {
-			select_y();
-		}
-		if (Input.GetKeyDown(KeyCode.H)) {
-			select_h();
-		}
-		if (Input.GetKeyDown(KeyCode.N)) {
-			select_n();
+		if (Input.GetKeyDown(KeyCode.Space)) {
+			select_purple();
 		}
 		Input.GetAxis("Horizontal");
 	}
