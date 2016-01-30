@@ -70,6 +70,7 @@ public class EnemySpawnData
 		float time = 0f;
 		time += 1f;
 		float speed = 1f;
+#if TEST
 		for (int i = 0; i < 1; ++i) {
 			add(time, 0, speed, (ElementType)Random.Range(0f, 3f));
 			time += 1f;
@@ -84,6 +85,98 @@ public class EnemySpawnData
 			// list_.Add(unit.initialize(time, 2, speed, (ElementType)Random.Range(0f, 3f)));
 			// time += 1f;
 		}
+#else
+        add(time, 0, speed, ElementType.Red);
+        time += 1f;
+        add(time, 1, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 2, speed, ElementType.Green);
+        time += 2f;
+
+        add(time, 0, speed, ElementType.Green);
+        time += 1.5f;
+        add(time, 1, speed, ElementType.Blue);
+        time += 2f;
+        add(time, 2, speed, ElementType.Red);
+        time += 2f;
+
+        add(time, 0, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 1, speed, ElementType.Green);
+        time += 2f;
+        add(time, 2, speed, ElementType.Red);
+        time += 2f;
+
+        add(time, 0, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 1, speed, ElementType.Green);
+        time += 1f;
+        add(time, 2, speed, ElementType.Green);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Red);
+        time += 1f;
+        add(time, 1, speed, ElementType.Green);
+        time += 2f;
+        add(time, 2, speed, ElementType.Blue);
+        time += 3f;
+
+        add(time, 0, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 1, speed, ElementType.Red);
+        time += 1f;
+        add(time, 2, speed, ElementType.Red);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Red);
+        time += 1f;
+        add(time, 1, speed, ElementType.Green);
+        time += 2f;
+        add(time, 2, speed, ElementType.Red);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 1, speed, ElementType.Green);
+        time += 1f;
+        add(time, 2, speed, ElementType.Green);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 1, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 2, speed, ElementType.Green);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Green);
+        time += 1f;
+        add(time, 1, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 2, speed, ElementType.Red);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Red);
+        time += 1f;
+        add(time, 1, speed, ElementType.Green);
+        time += 1f;
+        add(time, 2, speed, ElementType.Blue);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Green);
+        time += 1f;
+        add(time, 1, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 2, speed, ElementType.Red);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Green);
+        time += 1f;
+        add(time, 1, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 2, speed, ElementType.Red);
+        time += 1f;
+#endif
 	}
 
 	public int getTotalNum()
