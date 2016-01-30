@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour {
 					}
 					yield return null;
 					enemy_spawn_data_ = new EnemySpawnData();
+					enemy_spawn_data_.createData();
 					score_manager_.setup(enemy_spawn_data_.getTotalNum());
 					start_time_ = Time.time;
 					message_actor_.beginMessage("START!");
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour {
 						bool runout;
 						List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time, out runout);
 						foreach (var spawn in spawn_list) {
+							Debug.Assert(enemy_prefabs_[(int)spawn.element_type_] != null);
 							var go = Instantiate(enemy_prefabs_[(int)spawn.element_type_],
 												 spawn.position_,
 												 Quaternion.identity) as GameObject;

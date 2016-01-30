@@ -9,40 +9,42 @@ public struct EnemySpawnDataUnit
 	public float speed_;
 	public ElementType element_type_;
 
-	public EnemySpawnDataUnit(float time, Vector3 position, float speed, ElementType element_type)
+	// public EnemySpawnDataUnit(float time, Vector3 position, float speed, ElementType element_type)
+	// {
+	// 	time_ = time;
+	// 	position_ = position;
+	// 	speed_ = speed;
+	// 	element_type_ = element_type;
+	// }
+
+	// public EnemySpawnDataUnit initialize(float time, Vector3 position, float speed, ElementType element_type)
+	// {
+	// 	time_ = time;
+	// 	position_ = position;
+	// 	speed_ = speed;
+	// 	element_type_ = element_type;
+	// 	return this;
+	// }
+
+	public EnemySpawnDataUnit(float time, int lane_index, float speed, ElementType element_type)
 	{
 		time_ = time;
-		position_ = position;
 		speed_ = speed;
 		element_type_ = element_type;
-	}
-
-	public EnemySpawnDataUnit initialize(float time, Vector3 position, float speed, ElementType element_type)
-	{
-		time_ = time;
-		position_ = position;
-		speed_ = speed;
-		element_type_ = element_type;
-		return this;
-	}
-
-	public EnemySpawnDataUnit initialize(float time, int lane_index, float speed, ElementType element_type)
-	{
 		const float fixed_y = 0.5f;
 		const float fixed_z = 7.5f;
-		Vector3 position = new Vector3(-1f, fixed_y, fixed_z);
+		position_ = new Vector3(-1f, fixed_y, fixed_z);
 		switch (lane_index) {
 			case 0:
-				position.x = -1f;
+				position_.x = -1f;
 				break;
 			case 1:
-				position.x = 0f;
+				position_.x = 0f;
 				break;
 			case 2:
-				position.x = 1f;
+				position_.x = 1f;
 				break;
 		}
-		return initialize(time, position, speed, element_type);
 	}
 }
 
@@ -53,19 +55,34 @@ public class EnemySpawnData
 
 	public EnemySpawnData()
 	{
-		current_index_ = 0;
 		list_ = new List<EnemySpawnDataUnit>();
-		var unit = new EnemySpawnDataUnit(0, Vector3.zero, 0f, ElementType.Red);
+		current_index_ = 0;
+	}
+
+	private void add(float time, int lane_index, float speed, ElementType element_type)
+	{
+		list_.Add(new EnemySpawnDataUnit(time, lane_index, speed, element_type));
+	}
+
+	public void createData()
+	{
+		list_.Clear();
 		float time = 0f;
 		time += 1f;
 		float speed = 1f;
 		for (int i = 0; i < 1; ++i) {
-			list_.Add(unit.initialize(time, 0, speed, (ElementType)Random.Range(0f, 3f)));
+			add(time, 0, speed, (ElementType)Random.Range(0f, 3f));
 			time += 1f;
-			list_.Add(unit.initialize(time, 1, speed, (ElementType)Random.Range(0f, 3f)));
+			add(time, 1, speed, (ElementType)Random.Range(0f, 3f));
 			time += 1f;
-			list_.Add(unit.initialize(time, 2, speed, (ElementType)Random.Range(0f, 3f)));
+			add(time, 2, speed, (ElementType)Random.Range(0f, 3f));
 			time += 1f;
+			// list_.Add(unit.initialize(time, 0, speed, (ElementType)Random.Range(0f, 3f)));
+			// time += 1f;
+			// list_.Add(unit.initialize(time, 1, speed, (ElementType)Random.Range(0f, 3f)));
+			// time += 1f;
+			// list_.Add(unit.initialize(time, 2, speed, (ElementType)Random.Range(0f, 3f)));
+			// time += 1f;
 		}
 	}
 
