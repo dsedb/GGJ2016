@@ -5,6 +5,9 @@ public enum ElementType {
 	Red,
 	Blue,
 	Green,
+	Brown,
+	Purple,
+	Max,
 }
 
 public class Player : MonoBehaviour {

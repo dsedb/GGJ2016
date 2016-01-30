@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour {
 		Main,
 	}
 	public SceneType scene_type_;
-	public GameObject enemy_;
+	public GameObject[] enemy_prefabs_;
 	private EnemySpawnData enemy_spawn_data_;
 	private float start_time_;
 
@@ -27,7 +27,10 @@ public class GameManager : MonoBehaviour {
 
 	void Start()
 	{
-		if (enemy_ == null) {
+		if (enemy_prefabs_ == null) {
+			Debug.Assert(false);
+		}
+		if (enemy_prefabs_.Length != (int)ElementType.Max) {
 			Debug.Assert(false);
 		}
 		StartCoroutine(main_loop());
@@ -60,7 +63,9 @@ public class GameManager : MonoBehaviour {
 						float game_time = Time.time - start_time_;
 						List<EnemySpawnDataUnit> spawn_list = enemy_spawn_data_.getSpawnList(game_time);
 						foreach (var spawn in spawn_list) {
-							var go = Instantiate(enemy_, spawn.position_, Quaternion.Euler(0, 0, 180)) as GameObject;
+							var go = Instantiate(enemy_prefabs_[(int)spawn.element_type_],
+												 spawn.position_,
+												 Quaternion.Euler(0, 0, 180)) as GameObject;
 							var enemy = go.GetComponent<Enemy>();
 							enemy.setup(spawn);
 						}
