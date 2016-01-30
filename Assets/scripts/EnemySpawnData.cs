@@ -55,12 +55,13 @@ public class EnemySpawnData
 		var unit = new EnemySpawnDataUnit(0, Vector3.zero, 0f);
 		float time = 0f;
 		time += 1f;
+		float speed = 4f;
 		for (int i = 0; i < 10; ++i) {
-			list_.Add(unit.initialize(time, 0, 1f));
+			list_.Add(unit.initialize(time, 0, speed));
 			time += 1f;
-			list_.Add(unit.initialize(time, 1, 1f));
+			list_.Add(unit.initialize(time, 1, speed));
 			time += 1f;
-			list_.Add(unit.initialize(time, 2, 1f));
+			list_.Add(unit.initialize(time, 2, speed));
 			time += 1f;
 		}
 	}

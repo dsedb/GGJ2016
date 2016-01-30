@@ -34,4 +34,10 @@ public class Enemy : MonoBehaviour {
 	{
 		transform.position += speed_ * Time.deltaTime;
 	}
+
+	void OnTriggerEnter(Collider other)
+	{
+        Destroy(other.gameObject);
+    }
+
 }
