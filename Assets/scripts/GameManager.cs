@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour {
 						foreach (var spawn in spawn_list) {
 							var go = Instantiate(enemy_prefabs_[(int)spawn.element_type_],
 												 spawn.position_,
-												 Quaternion.Euler(0, 0, 180)) as GameObject;
+												 Quaternion.identity) as GameObject;
 							var enemy = go.GetComponent<Enemy>();
 							enemy.setup(spawn);
 						}
