@@ -3,7 +3,17 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
+	private ElementType element_type_;
 	const float speed = 20f;
+
+	public void setElementType(ElementType element_type)
+	{
+		element_type_ = element_type;
+	}
+	public ElementType getElementType()
+	{
+		return element_type_;
+	}
 
 	void FixedUpdate()
 	{
@@ -16,6 +26,6 @@ public class Bullet : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-        Destroy(other.gameObject);
+        Destroy(gameObject);
     }
 }

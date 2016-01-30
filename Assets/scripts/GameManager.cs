@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour {
 						foreach (var spawn in spawn_list) {
 							var go = Instantiate(enemy_, spawn.position_, Quaternion.Euler(0, 0, 180)) as GameObject;
 							var enemy = go.GetComponent<Enemy>();
-							enemy.setSpeed(spawn.speed_);
+							enemy.setup(spawn);
 						}
 						yield return null;
 					}

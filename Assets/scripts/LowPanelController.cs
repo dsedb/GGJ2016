@@ -12,16 +12,16 @@ public class LowPanelController : MonoBehaviour {
 		alpha_ = image_.color.a;
 	}
 
-	public void setBulletType(Player.BulletType bullet_type)
+	public void setElementType(ElementType element_type)
 	{
-		switch (bullet_type) {
-			case Player.BulletType.Red:
+		switch (element_type) {
+			case ElementType.Red:
 				image_.color = new Color(1, 0, 0, alpha_);
 				break;
-			case Player.BulletType.Blue:
+			case ElementType.Blue:
 				image_.color = new Color(0, 0, 1, alpha_);
 				break;
-			case Player.BulletType.Green:
+			case ElementType.Green:
 				image_.color = new Color(0, 1, 0, alpha_);
 				break;
 		}

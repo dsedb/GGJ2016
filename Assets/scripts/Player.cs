@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum ElementType {
+	Red,
+	Blue,
+	Green,
+}
+
 public class Player : MonoBehaviour {
 
 	public GameObject bulletRed_;
@@ -8,12 +14,7 @@ public class Player : MonoBehaviour {
 	public GameObject bulletGreen_;
 	public LowPanelController low_panel_controller_;
 
-	public enum BulletType {
-		Red,
-		Blue,
-		Green,
-	}
-	private BulletType bullet_type_;
+	private ElementType element_type_;
 	private Vector3 fire_point_x_;
 	private Vector3 fire_point_c_;
 	private Vector3 fire_point_v_;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour {
 	
 	void Awake()
 	{
-		bullet_type_ = BulletType.Red;
+		element_type_ = ElementType.Red;
 		fire_point_x_ = new Vector3(-2f, 0.5f, 0f);
 		fire_point_c_ = new Vector3( 0f, 0.5f, 0f);
 		fire_point_v_ = new Vector3( 2f, 0.5f, 0f);
@@ -44,37 +45,39 @@ public class Player : MonoBehaviour {
 
 	private void select_y()
 	{
-		bullet_type_ = BulletType.Red;
+		element_type_ = ElementType.Red;
 		current_bullet_prefab_ = bulletRed_;
 		enelemnt_y_.setSelected(true);
 		enelemnt_h_.setSelected(false);
 		enelemnt_n_.setSelected(false);
-		low_panel_controller_.setBulletType(bullet_type_);
+		low_panel_controller_.setElementType(element_type_);
 	}
 
 	private void select_h()
 	{
-		bullet_type_ = BulletType.Blue;
+		element_type_ = ElementType.Blue;
 		current_bullet_prefab_ = bulletBlue_;
 		enelemnt_y_.setSelected(false);
 		enelemnt_h_.setSelected(true);
 		enelemnt_n_.setSelected(false);
-		low_panel_controller_.setBulletType(bullet_type_);
+		low_panel_controller_.setElementType(element_type_);
 	}
 
 	private void select_n()
 	{
-		bullet_type_ = BulletType.Green;
+		element_type_ = ElementType.Green;
 		current_bullet_prefab_ = bulletGreen_;
 		enelemnt_y_.setSelected(false);
 		enelemnt_h_.setSelected(false);
 		enelemnt_n_.setSelected(true);
-		low_panel_controller_.setBulletType(bullet_type_);
+		low_panel_controller_.setElementType(element_type_);
 	}
 
 	private void fire(Vector3 fire_point)
 	{
-		Instantiate(current_bullet_prefab_, fire_point, Quaternion.identity);
+		var go = Instantiate(current_bullet_prefab_, fire_point, Quaternion.identity) as GameObject;
+		var bullet = go.GetComponent<Bullet>();
+		bullet.setElementType(element_type_);
 	}
 
 	void Update()
