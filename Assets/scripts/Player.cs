@@ -124,18 +124,6 @@ public class Player : MonoBehaviour {
 
 	void Update()
 	{
-		if (!InPlay) {
-			return;
-		}
-		if (Input.GetKeyDown(KeyCode.Z)) {
-			fire(fire_point_z_);
-		}
-		if (Input.GetKeyDown(KeyCode.X)) {
-			fire(fire_point_x_);
-		}
-		if (Input.GetKeyDown(KeyCode.C)) {
-			fire(fire_point_c_);
-		}
 		if (Input.GetKeyDown(KeyCode.R)) {
 			select_red();
 		}
@@ -151,6 +139,17 @@ public class Player : MonoBehaviour {
 		// if (Input.GetKeyDown(KeyCode.Space)) {
 		// 	select_purple();
 		// }
-		Input.GetAxis("Horizontal");
+		if (!InPlay) {
+			return;
+		}
+		if (Input.GetKeyDown(KeyCode.Z)) {
+			fire(fire_point_z_);
+		}
+		if (Input.GetKeyDown(KeyCode.X)) {
+			fire(fire_point_x_);
+		}
+		if (Input.GetKeyDown(KeyCode.C)) {
+			fire(fire_point_c_);
+		}
 	}
 }
