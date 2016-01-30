@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] enemy_prefabs_;
 	private EnemySpawnData enemy_spawn_data_;
 	private ScoreManager score_manager_;
+	private CameraDamageEffect camera_damage_effect_;
 	private float start_time_;
 
 	void Awake()
@@ -62,6 +63,9 @@ public class GameManager : MonoBehaviour {
 					if (score_manager_ == null) {
 						score_manager_ = GameObject.Find("ScorePanel").GetComponent<ScoreManager>();
 					}
+					if (camera_damage_effect_ == null) {
+						camera_damage_effect_ = GameObject.Find("Main Camera").GetComponent<CameraDamageEffect>();
+					}
 					score_manager_.setup(enemy_spawn_data_.getTotalNum());
 					start_time_ = Time.time;
 					for (;;) {
@@ -92,5 +96,6 @@ public class GameManager : MonoBehaviour {
 	public void incLose()
 	{
 		score_manager_.incLose();
+		camera_damage_effect_.startDamage(0.5f /* duration */, 1f /* power */);
 	}
 }

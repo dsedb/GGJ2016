@@ -33,7 +33,8 @@ public class Enemy : MonoBehaviour {
 	IEnumerator loop()
 	{
 		for (;;) {
-			if (transform.position.z < -1f) {
+			if (transform.position.z < 0f) {
+				GameManager.Instance.incLose();
 				Destroy(this.gameObject);
 				yield return null;
 			}
@@ -63,8 +64,6 @@ public class Enemy : MonoBehaviour {
 			GameManager.Instance.incWin();
 			Destroy(gameObject);
 		} else {
-			Debug.Log("wrong element!");
-			GameManager.Instance.incLose(); // tmp
 			StartCoroutine(penalty_move());
 		}
     }
