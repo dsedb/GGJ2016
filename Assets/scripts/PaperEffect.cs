@@ -82,7 +82,7 @@ public class PaperEffect : MonoBehaviour
 					} else {
 						float r = (1f - (k*rl)) * R0 + (k*rl)*R1;
 						float yn = (l*0.5f - p) + r * (float)System.Math.Sin(k/r);
-						float zn = -R0 + r * (float)System.Math.Cos(k/r);
+						float zn = R0 - r * (float)System.Math.Cos(k/r);
 						vertices[x + y * X_NUM] = new Vector3(xi, yn, zn);
 					}
 				} else if (s < 0) {
@@ -93,7 +93,7 @@ public class PaperEffect : MonoBehaviour
 					} else {
 						float r = (1f - (k*rl)) * R0 + (k*rl)*R1;
 						float yn = (-l*0.5f + p) + r * (float)System.Math.Sin(k/r);
-						float zn = -R0 + r * (float)System.Math.Cos(k/r);
+						float zn = R0 - r * (float)System.Math.Cos(k/r);
 						vertices[x + y * X_NUM] = new Vector3(xi, yn, zn);
 					}
 				} else {

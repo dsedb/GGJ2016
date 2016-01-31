@@ -105,6 +105,7 @@ public class Enemy : MonoBehaviour {
 			}
 
 			internal_speed_.z = speed_.z + (float)System.Math.Sin(Mathf.Repeat(Time.time + spawn_time_, 0.9f)/0.9f * Mathf.PI * 2f);
+			// transform.Rotate(new Vector3(0f, 0f, (float)System.Math.Sin(Mathf.Repeat(Time.time + spawn_time_, 0.9f)/0.9f * Mathf.PI) * 90f * Time.deltaTime));
 
 			yield return null;
 

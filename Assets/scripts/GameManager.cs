@@ -118,7 +118,7 @@ public class GameManager : MonoBehaviour {
 					} else {
 						message_actor_.beginMessage("LOSE");
 					}
-					yield return new WaitForSeconds(2);
+					yield return new WaitForSeconds(3);
 
 					scene_type_ = SceneType.Title;
 					UnityEngine.SceneManagement.SceneManager.LoadScene("title", 

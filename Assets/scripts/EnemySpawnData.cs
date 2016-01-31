@@ -61,12 +61,6 @@ public class EnemySpawnData
 			time += 1f;
 			add(time, 2, speed, (ElementType)Random.Range(0f, 3f));
 			time += 1f;
-			// list_.Add(unit.initialize(time, 0, speed, (ElementType)Random.Range(0f, 3f)));
-			// time += 1f;
-			// list_.Add(unit.initialize(time, 1, speed, (ElementType)Random.Range(0f, 3f)));
-			// time += 1f;
-			// list_.Add(unit.initialize(time, 2, speed, (ElementType)Random.Range(0f, 3f)));
-			// time += 1f;
 		}
 #else
         add(time, 0, speed, ElementType.Red);
