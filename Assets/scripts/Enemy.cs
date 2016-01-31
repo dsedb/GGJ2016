@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour {
 	public AudioClip audioHit_;
 	public AudioClip audioGuard_;
 	public GameObject deadParticle_;
+	public GameObject guardParticle_;
 	private AudioSource audio_source_;
 	private Vector3 speed_;
 	private Vector3 internal_speed_;
