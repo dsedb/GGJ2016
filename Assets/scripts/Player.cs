@@ -18,6 +18,7 @@ public class Player : MonoBehaviour {
 	public GameObject bulletBrown_;
 	public GameObject bulletPurple_;
 	public AudioClip audioFire_;
+	public AudioClip audioDamage_;
 
 	private AudioSource audio_source_;
 	private LowPanelController low_panel_controller_;
@@ -118,6 +119,12 @@ public class Player : MonoBehaviour {
 		var go = Instantiate(current_bullet_prefab_, fire_point, Quaternion.identity) as GameObject;
 		var bullet = go.GetComponent<Bullet>();
 		bullet.setElementType(element_type_);
+	}
+
+	public void setDamage()
+	{
+		audio_source_.clip = audioDamage_;
+		audio_source_.Play();
 	}
 
 	void Update()
