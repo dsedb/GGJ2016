@@ -32,7 +32,7 @@ public struct EnemySpawnDataUnit
 		speed_ = speed;
 		element_type_ = element_type;
 		const float fixed_y = 0.5f;
-		const float fixed_z = 7.5f;
+		const float fixed_z = 10f;
 		position_ = new Vector3(-1f, fixed_y, fixed_z);
 		switch (lane_index) {
 			case 0:

@@ -11,6 +11,12 @@ public class PaperEffect : MonoBehaviour
 	private const float height = 1.5f;
 	private const int X_NUM = 16;
 	private const int Y_NUM = 32;
+	private float prev_s = 0f;
+
+	public void setValue(float v)
+	{
+		s = Mathf.Clamp(v, -1f, 1f);
+	}
 
 	void Awake()
 	{
@@ -23,7 +29,6 @@ public class PaperEffect : MonoBehaviour
 		var uvs = new Vector2[X_NUM * Y_NUM];
 		for (int y = 0; y < Y_NUM; ++y) {
 			for (int x = 0; x < X_NUM; ++x) {
-				// uvs [x + y * X_NUM] = new Vector2 (((float)x) / X_NUM, ((float)(y-(Y_NUM/4))*1.5f) / Y_NUM);
 				uvs [x + y * X_NUM] = new Vector2 (((float)x) / X_NUM, ((float)y) / Y_NUM);
 			}
 		}
@@ -49,13 +54,21 @@ public class PaperEffect : MonoBehaviour
 		mesh.RecalculateNormals();
 		mesh.RecalculateBounds();
 		GetComponent<MeshFilter>().sharedMesh = mesh;
+		GetComponent<MeshRenderer>().enabled = false; // not to show for the first frame.
 	}
 
 	void Update()
 	{
+		GetComponent<MeshRenderer>().enabled = true;
+		if (prev_s == s) {		// suppress recalcuration
+			return;
+		}
+		prev_s = s;
+
 		const float R0 = 0.05f;
 		const float R1 = 0.06f;
 		float l = height;
+		float rl = 1.0f/l;
 		var vertices = new Vector3[X_NUM * Y_NUM];
 		for (int y = 0; y < Y_NUM; ++y) {
 			for (int x = 0; x < X_NUM; ++x) {
@@ -67,7 +80,7 @@ public class PaperEffect : MonoBehaviour
 					if (k <= 0) {
 						vertices[x + y * X_NUM] = new Vector3(xi, yi, 0f);
 					} else {
-						float r = (1f - (k/l)) * R0 + (k/l)*R1;
+						float r = (1f - (k*rl)) * R0 + (k*rl)*R1;
 						float yn = (l*0.5f - p) + r * (float)System.Math.Sin(k/r);
 						float zn = -R0 + r * (float)System.Math.Cos(k/r);
 						vertices[x + y * X_NUM] = new Vector3(xi, yn, zn);
@@ -78,7 +91,7 @@ public class PaperEffect : MonoBehaviour
 					if (k <= 0) {
 						vertices[x + y * X_NUM] = new Vector3(xi, yi, 0f);
 					} else {
-						float r = (1f - (k/l)) * R0 + (k/l)*R1;
+						float r = (1f - (k*rl)) * R0 + (k*rl)*R1;
 						float yn = (-l*0.5f + p) + r * (float)System.Math.Sin(k/r);
 						float zn = -R0 + r * (float)System.Math.Cos(k/r);
 						vertices[x + y * X_NUM] = new Vector3(xi, yn, zn);
