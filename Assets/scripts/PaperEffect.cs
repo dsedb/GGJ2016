@@ -7,6 +7,8 @@ public class PaperEffect : MonoBehaviour
 {
 	[Range(-1, 1)]
 	public float s = 0f;
+	[Range(-1, 1)]
+	public float t = 0f;
 	private const float width = 0.667f;
 	private const float height = 1.5f;
 	private const int X_NUM = 16;
@@ -16,6 +18,13 @@ public class PaperEffect : MonoBehaviour
 	public void setValue(float v)
 	{
 		s = Mathf.Clamp(v, -1f, 1f);
+		t = 0f;
+	}
+
+	public void setTwistValue(float v)
+	{
+		s = 0f;
+		t = Mathf.Clamp(v, -1f, 1f);
 	}
 
 	void Awake()
@@ -57,9 +66,33 @@ public class PaperEffect : MonoBehaviour
 		GetComponent<MeshRenderer>().enabled = false; // not to show for the first frame.
 	}
 
+	private void update_twist()
+	{
+		float l = height;
+		float rl = 1.0f/l;
+		float V = 2f;
+		var vertices = new Vector3[X_NUM * Y_NUM];
+		for (int y = 0; y < Y_NUM; ++y) {
+			for (int x = 0; x < X_NUM; ++x) {
+				float xi = (x*width/X_NUM) - width*0.5f;
+				float yi = (y*height/Y_NUM) - height*0.5f;
+				float z = 0f;
+				if (yi < 0f) {
+					z = -2 * yi * xi * V * t * rl;
+				}
+				vertices[x + y * X_NUM] = new Vector3(xi, yi, z);
+			}
+		}
+		GetComponent<MeshFilter>().sharedMesh.vertices = vertices;
+	}
+
 	void Update()
 	{
 		GetComponent<MeshRenderer>().enabled = true;
+		if (t != 0f) {
+			update_twist();
+			return;
+		}
 		if (prev_s == s) {		// suppress recalcuration
 			return;
 		}
