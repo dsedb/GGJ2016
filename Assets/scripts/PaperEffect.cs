@@ -71,6 +71,21 @@ public class PaperEffect : MonoBehaviour
 		float l = height;
 		float rl = 1.0f/l;
 		float V = 2f;
+
+		float theta = (t * Mathf.PI * 0.1f);
+		float p0orgx = -width*0.5f;
+		float p0orgy = height*0.5f;
+		float p0x = p0orgx * Mathf.Cos(theta) - p0orgy * Mathf.Sin(theta);
+		float p0y = p0orgx * Mathf.Sin(theta) + p0orgy * Mathf.Cos(theta);
+		float p1orgx = width*0.5f;
+		float p1orgy = height*0.5f;
+		float p1x = p1orgx * Mathf.Cos(theta) - p1orgy * Mathf.Sin(theta);
+		float p1y = p1orgx * Mathf.Sin(theta) + p1orgy * Mathf.Cos(theta);
+		float p2x = -width*0.5f;
+		float p2y = 0f;
+		float p3x = width*0.5f;
+		float p3y = 0f;
+			
 		var vertices = new Vector3[X_NUM * Y_NUM];
 		for (int y = 0; y < Y_NUM; ++y) {
 			for (int x = 0; x < X_NUM; ++x) {
@@ -79,8 +94,19 @@ public class PaperEffect : MonoBehaviour
 				float z = 0f;
 				if (yi < 0f) {
 					z = -2 * yi * xi * V * t * rl;
+					vertices[x + y * X_NUM] = new Vector3(xi, yi, z);
+				} else {
+					float paramT = xi/width + 0.5f;
+					float paramS = 1f - yi/(height*0.5f);
+					float q0x = p0x*(1f-paramT) + paramT*p1x;
+					float q0y = p0y*(1f-paramT) + paramT*p1y;
+					float q1x = p2x*(1f-paramT) + paramT*p3x;
+					float q1y = p2y*(1f-paramT) + paramT*p3y;
+					float qx = q0x*(1f-paramS) + paramS*q1x;
+					float qy = q0y*(1f-paramS) + paramS*q1y;
+					vertices[x + y * X_NUM] = new Vector3(qx, qy, z);
 				}
-				vertices[x + y * X_NUM] = new Vector3(xi, yi, z);
+				// vertices[x + y * X_NUM] = new Vector3(xi, yi, z);
 			}
 		}
 		GetComponent<MeshFilter>().sharedMesh.vertices = vertices;
