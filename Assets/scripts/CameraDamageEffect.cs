@@ -19,6 +19,7 @@ public class CameraDamageEffect : MonoBehaviour {
 				target_position_ = original_position_;
 			}
 			yield return null;
+			yield return null;
 		}
 	}
 

@@ -138,6 +138,6 @@ public class GameManager : MonoBehaviour {
 	public void incLose()
 	{
 		score_manager_.incLose();
-		camera_damage_effect_.startDamage(0.5f /* duration */, 1f /* power */);
+		camera_damage_effect_.startDamage(0.5f /* duration */, 0.5f /* power */);
 	}
 }

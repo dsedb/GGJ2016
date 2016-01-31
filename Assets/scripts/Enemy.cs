@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour {
 	private PaperEffect paper_effect_;
 	private bool dead_;
 	private bool dead_effect_started_;
+	private float spawn_time_;
 
 	void Awake()
 	{
@@ -21,6 +22,7 @@ public class Enemy : MonoBehaviour {
 		paper_effect_.setValue(1f);
 		dead_ = false;
 		dead_effect_started_ = false;
+		spawn_time_ = Time.time;
 	}
 
 	void Start ()
@@ -97,6 +99,9 @@ public class Enemy : MonoBehaviour {
 				Destroy(this.gameObject);
 				yield return null;
 			}
+
+			internal_speed_.z = speed_.z + (float)System.Math.Sin(Mathf.Repeat(Time.time + spawn_time_, 0.9f)/0.9f * Mathf.PI * 2f);
+
 			yield return null;
 
 			if (dead_) {
