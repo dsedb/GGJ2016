@@ -14,7 +14,10 @@ public class GameManager : MonoBehaviour {
 	private EnemySpawnData enemy_spawn_data_;
 	private ScoreManager score_manager_;
 	private CameraDamageEffect camera_damage_effect_;
-	private WidgetActor message_actor_;
+	private WidgetActor message_start_actor_;
+	private WidgetActor message_finish_actor_;
+	private WidgetActor message_win_actor_;
+	private WidgetActor message_lose_actor_;
 	private WidgetActor score_actor_;
 	private float start_time_;
 	private Player player_;
@@ -73,8 +76,20 @@ public class GameManager : MonoBehaviour {
 					if (camera_damage_effect_ == null) {
 						camera_damage_effect_ = GameObject.Find("Main Camera").GetComponent<CameraDamageEffect>();
 					}
-					if (message_actor_ == null) {
-						message_actor_ = GameObject.Find("MessagePanel").GetComponent<WidgetActor>();
+					// if (message_actor_ == null) {
+					// 	message_actor_ = GameObject.Find("MessagePanel").GetComponent<WidgetActor>();
+					// }
+					if (message_start_actor_ == null) {
+						message_start_actor_ = GameObject.Find("MessageStart").GetComponent<WidgetActor>();
+					}
+					if (message_finish_actor_ == null) {
+						message_finish_actor_ = GameObject.Find("MessageFinish").GetComponent<WidgetActor>();
+					}
+					if (message_win_actor_ == null) {
+						message_win_actor_ = GameObject.Find("MessageWin").GetComponent<WidgetActor>();
+					}
+					if (message_lose_actor_ == null) {
+						message_lose_actor_ = GameObject.Find("MessageLose").GetComponent<WidgetActor>();
 					}
 					if (score_actor_ == null) {
 						score_actor_ = GameObject.Find("ScorePanel").GetComponent<WidgetActor>();
@@ -88,7 +103,8 @@ public class GameManager : MonoBehaviour {
 					enemy_spawn_data_.createData();
 					score_manager_.setup(enemy_spawn_data_.getTotalNum());
 					start_time_ = Time.time;
-					message_actor_.beginMessage("START!");
+					// message_actor_.beginMessage("START!");
+					message_start_actor_.begin();
 					player_.InPlay = true;
 					for (;;) {
 						float game_time = Time.time - start_time_;
@@ -109,16 +125,19 @@ public class GameManager : MonoBehaviour {
 					}
 					player_.InPlay = false;
 					yield return new WaitForSeconds(1);
-					message_actor_.beginMessage("FINISH!");
+					// message_actor_.beginMessage("FINISH!");
+					message_finish_actor_.begin();
 					yield return new WaitForSeconds(1);
 					GetComponent<AudioSource>().Stop();
 					
 					score_actor_.beginResult();
 					yield return new WaitForSeconds(2);
 					if (score_manager_.won()) {
-						message_actor_.beginMessage("WIN!");
+						// message_actor_.beginMessage("WIN!");
+						message_win_actor_.begin();
 					} else {
-						message_actor_.beginMessage("LOSE");
+						// message_actor_.beginMessage("LOSE");
+						message_lose_actor_.begin();
 					}
 					yield return new WaitForSeconds(3);
 

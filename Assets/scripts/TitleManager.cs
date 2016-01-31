@@ -84,7 +84,5 @@ public class TitleManager : MonoBehaviour {
 		key_z_effect_.setActive(Input.GetKey(KeyCode.Z));
 		key_x_effect_.setActive(Input.GetKey(KeyCode.X));
 		key_c_effect_.setActive(Input.GetKey(KeyCode.C));
-
-
 	}
 }

@@ -5,8 +5,8 @@ public enum ElementType {
 	Red,
 	Blue,
 	Green,
-	Brown,
-	Purple,
+	// Brown,
+	// Purple,
 	Max,
 }
 
@@ -15,8 +15,8 @@ public class Player : MonoBehaviour {
 	public GameObject bulletRed_;
 	public GameObject bulletBlue_;
 	public GameObject bulletGreen_;
-	public GameObject bulletBrown_;
-	public GameObject bulletPurple_;
+	// public GameObject bulletBrown_;
+	// public GameObject bulletPurple_;
 	public AudioClip audioFire_;
 	public AudioClip audioDamage_;
 
@@ -92,25 +92,25 @@ public class Player : MonoBehaviour {
 		low_panel_controller_.setElementType(element_type_);
 	}
 
-	private void select_brown()
-	{
-		element_type_ = ElementType.Brown;
-		current_bullet_prefab_ = bulletBrown_;
-		enelemnt_red_.setSelected(false);
-		enelemnt_blue_.setSelected(false);
-		enelemnt_green_.setSelected(false);
-		low_panel_controller_.setElementType(element_type_);
-	}
+	// private void select_brown()
+	// {
+	// 	element_type_ = ElementType.Brown;
+	// 	current_bullet_prefab_ = bulletBrown_;
+	// 	enelemnt_red_.setSelected(false);
+	// 	enelemnt_blue_.setSelected(false);
+	// 	enelemnt_green_.setSelected(false);
+	// 	low_panel_controller_.setElementType(element_type_);
+	// }
 
-	private void select_purple()
-	{
-		element_type_ = ElementType.Purple;
-		current_bullet_prefab_ = bulletPurple_;
-		enelemnt_red_.setSelected(false);
-		enelemnt_blue_.setSelected(false);
-		enelemnt_green_.setSelected(false);
-		low_panel_controller_.setElementType(element_type_);
-	}
+	// private void select_purple()
+	// {
+	// 	element_type_ = ElementType.Purple;
+	// 	current_bullet_prefab_ = bulletPurple_;
+	// 	enelemnt_red_.setSelected(false);
+	// 	enelemnt_blue_.setSelected(false);
+	// 	enelemnt_green_.setSelected(false);
+	// 	low_panel_controller_.setElementType(element_type_);
+	// }
 
 	private void fire(Vector3 fire_point)
 	{
