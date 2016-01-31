@@ -75,7 +75,7 @@ public class TitleManager : MonoBehaviour {
 		if (Input.GetKey(KeyCode.M)) {
 			text.Append("</color>");
 		}
-		text.Append("on Keyboard!");
+		text.Append("keys!");
 		message_text_.text = text.ToString();
 
 		enelemnt_red_.setSelected(Input.GetKey(KeyCode.O));
