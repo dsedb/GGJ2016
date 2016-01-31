@@ -48,7 +48,14 @@ public class GameManager : MonoBehaviour {
 				// title loop
 				case SceneType.Title:
 					for (;;) {
-						if (Input.anyKey) {
+						if (true &&
+							Input.GetKey(KeyCode.O) &&
+							Input.GetKey(KeyCode.K) &&
+							Input.GetKey(KeyCode.M) && 
+							Input.GetKey(KeyCode.Z) &&
+							Input.GetKey(KeyCode.X) &&
+							Input.GetKey(KeyCode.C) &&
+							true) {
 							UnityEngine.SceneManagement.SceneManager.LoadScene("main", 
 																			   UnityEngine.SceneManagement.LoadSceneMode.Single);
 							break;

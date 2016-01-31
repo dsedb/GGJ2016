@@ -28,9 +28,11 @@ public class Player : MonoBehaviour {
 	private ElementUI enelemnt_red_;
 	private ElementUI enelemnt_blue_;
 	private ElementUI enelemnt_green_;
-	// private ElementUI enelemnt_brown_;
-	// private ElementUI enelemnt_purple_;
 	private GameObject current_bullet_prefab_;
+	private ActivateKeyEffect key_z_effect_;
+	private ActivateKeyEffect key_x_effect_;
+	private ActivateKeyEffect key_c_effect_;
+
 	public bool InPlay { get; set; }
 	
 	void Awake()
@@ -44,9 +46,10 @@ public class Player : MonoBehaviour {
 		enelemnt_red_ = GameObject.Find("ElementRed").GetComponent<ElementUI>();
 		enelemnt_blue_ = GameObject.Find("ElementBlue").GetComponent<ElementUI>();
 		enelemnt_green_ = GameObject.Find("ElementGreen").GetComponent<ElementUI>();
-		// enelemnt_brown_ = GameObject.Find("ElementBrown").GetComponent<ElementUI>();
-		// enelemnt_purple_ = GameObject.Find("ElementPurple").GetComponent<ElementUI>();
 		current_bullet_prefab_ = bulletRed_;
+		key_z_effect_ = GameObject.Find("KeyZ").GetComponent<ActivateKeyEffect>();
+		key_x_effect_ = GameObject.Find("KeyX").GetComponent<ActivateKeyEffect>();
+		key_c_effect_ = GameObject.Find("KeyC").GetComponent<ActivateKeyEffect>();
 	}
 
 	void Start()
@@ -65,8 +68,6 @@ public class Player : MonoBehaviour {
 		enelemnt_red_.setSelected(true);
 		enelemnt_blue_.setSelected(false);
 		enelemnt_green_.setSelected(false);
-		// enelemnt_brown_.setSelected(false);
-		// enelemnt_purple_.setSelected(false);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
@@ -77,8 +78,6 @@ public class Player : MonoBehaviour {
 		enelemnt_red_.setSelected(false);
 		enelemnt_blue_.setSelected(true);
 		enelemnt_green_.setSelected(false);
-		// enelemnt_brown_.setSelected(false);
-		// enelemnt_purple_.setSelected(false);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
@@ -89,8 +88,6 @@ public class Player : MonoBehaviour {
 		enelemnt_red_.setSelected(false);
 		enelemnt_blue_.setSelected(false);
 		enelemnt_green_.setSelected(true);
-		// enelemnt_brown_.setSelected(false);
-		// enelemnt_purple_.setSelected(false);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
@@ -101,8 +98,6 @@ public class Player : MonoBehaviour {
 		enelemnt_red_.setSelected(false);
 		enelemnt_blue_.setSelected(false);
 		enelemnt_green_.setSelected(false);
-		// enelemnt_brown_.setSelected(true);
-		// enelemnt_purple_.setSelected(false);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
@@ -113,8 +108,6 @@ public class Player : MonoBehaviour {
 		enelemnt_red_.setSelected(false);
 		enelemnt_blue_.setSelected(false);
 		enelemnt_green_.setSelected(false);
-		// enelemnt_brown_.setSelected(false);
-		// enelemnt_purple_.setSelected(true);
 		low_panel_controller_.setElementType(element_type_);
 	}
 
@@ -138,15 +131,13 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.M)) {
 			select_green();
 		}
-		// if (Input.GetKeyDown(KeyCode.V)) {
-		// 	select_brown();
-		// }
-		// if (Input.GetKeyDown(KeyCode.Space)) {
-		// 	select_purple();
-		// }
 		if (!InPlay) {
 			return;
 		}
+		key_z_effect_.setActive(Input.GetKey(KeyCode.Z));
+		key_x_effect_.setActive(Input.GetKey(KeyCode.X));
+		key_c_effect_.setActive(Input.GetKey(KeyCode.C));
+
 		if (Input.GetKeyDown(KeyCode.Z)) {
 			fire(fire_point_z_);
 		}
