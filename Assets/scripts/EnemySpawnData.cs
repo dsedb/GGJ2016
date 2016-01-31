@@ -9,23 +9,6 @@ public struct EnemySpawnDataUnit
 	public float speed_;
 	public ElementType element_type_;
 
-	// public EnemySpawnDataUnit(float time, Vector3 position, float speed, ElementType element_type)
-	// {
-	// 	time_ = time;
-	// 	position_ = position;
-	// 	speed_ = speed;
-	// 	element_type_ = element_type;
-	// }
-
-	// public EnemySpawnDataUnit initialize(float time, Vector3 position, float speed, ElementType element_type)
-	// {
-	// 	time_ = time;
-	// 	position_ = position;
-	// 	speed_ = speed;
-	// 	element_type_ = element_type;
-	// 	return this;
-	// }
-
 	public EnemySpawnDataUnit(float time, int lane_index, float speed, ElementType element_type)
 	{
 		time_ = time;
@@ -88,12 +71,12 @@ public class EnemySpawnData
 #else
         add(time, 0, speed, ElementType.Red);
         time += 1f;
-        add(time, 1, speed, ElementType.Blue);
+        add(time, 1, speed, ElementType.Red);
         time += 1f;
-        add(time, 2, speed, ElementType.Green);
+        add(time, 2, speed, ElementType.Red);
         time += 2f;
 
-        add(time, 0, speed, ElementType.Green);
+        add(time, 0, speed, ElementType.Red);
         time += 1.5f;
         add(time, 1, speed, ElementType.Blue);
         time += 2f;
@@ -102,14 +85,28 @@ public class EnemySpawnData
 
         add(time, 0, speed, ElementType.Blue);
         time += 1f;
-        add(time, 1, speed, ElementType.Green);
+        add(time, 1, speed, ElementType.Red);
         time += 2f;
         add(time, 2, speed, ElementType.Red);
         time += 2f;
 
-        add(time, 0, speed, ElementType.Blue);
+        add(time, 0, speed, ElementType.Red);
         time += 1f;
-        add(time, 1, speed, ElementType.Green);
+        add(time, 1, speed, ElementType.Blue);
+        time += 1f;
+        add(time, 2, speed, ElementType.Blue);
+        time += 1f;
+
+        add(time, 0, speed, ElementType.Green);
+        time += 1f;
+        add(time, 1, speed, ElementType.Red);
+        time += 2f;
+        add(time, 2, speed, ElementType.Red);
+        time += 3f;
+
+        add(time, 0, speed, ElementType.Red);
+        time += 1f;
+        add(time, 1, speed, ElementType.Blue);
         time += 1f;
         add(time, 2, speed, ElementType.Green);
         time += 1f;
@@ -118,35 +115,21 @@ public class EnemySpawnData
         time += 1f;
         add(time, 1, speed, ElementType.Green);
         time += 2f;
-        add(time, 2, speed, ElementType.Blue);
-        time += 3f;
+        add(time, 2, speed, ElementType.Green);
+        time += 1f;
 
         add(time, 0, speed, ElementType.Blue);
         time += 1f;
         add(time, 1, speed, ElementType.Red);
         time += 1f;
-        add(time, 2, speed, ElementType.Red);
+        add(time, 2, speed, ElementType.Green);
         time += 1f;
 
         add(time, 0, speed, ElementType.Red);
         time += 1f;
-        add(time, 1, speed, ElementType.Green);
-        time += 2f;
-        add(time, 2, speed, ElementType.Red);
-        time += 1f;
-
-        add(time, 0, speed, ElementType.Blue);
-        time += 1f;
-        add(time, 1, speed, ElementType.Green);
-        time += 1f;
-        add(time, 2, speed, ElementType.Green);
-        time += 1f;
-
-        add(time, 0, speed, ElementType.Blue);
-        time += 1f;
         add(time, 1, speed, ElementType.Blue);
         time += 1f;
-        add(time, 2, speed, ElementType.Green);
+        add(time, 2, speed, ElementType.Red);
         time += 1f;
 
         add(time, 0, speed, ElementType.Green);

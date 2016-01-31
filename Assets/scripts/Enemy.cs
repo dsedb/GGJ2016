@@ -134,7 +134,7 @@ public class Enemy : MonoBehaviour {
 	{
 		float start_time = Time.time;
 		float penalty_speed = -8f;
-		while (Time.time - start_time < 0.1f) {
+		while (Time.time - start_time < 0.2f) {
 			transform.position += new Vector3(0, 0, penalty_speed * Time.deltaTime);
 			yield return null;
 		}
