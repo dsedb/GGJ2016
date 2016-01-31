@@ -83,6 +83,7 @@ public class GameManager : MonoBehaviour {
 						player_ = GameObject.Find("player").GetComponent<Player>();
 					}
 					yield return null;
+					GetComponent<AudioSource>().Play();
 					enemy_spawn_data_ = new EnemySpawnData();
 					enemy_spawn_data_.createData();
 					score_manager_.setup(enemy_spawn_data_.getTotalNum());
@@ -110,6 +111,7 @@ public class GameManager : MonoBehaviour {
 					yield return new WaitForSeconds(1);
 					message_actor_.beginMessage("FINISH!");
 					yield return new WaitForSeconds(1);
+					GetComponent<AudioSource>().Stop();
 					
 					score_actor_.beginResult();
 					yield return new WaitForSeconds(2);
