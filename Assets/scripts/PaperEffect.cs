@@ -72,7 +72,7 @@ public class PaperEffect : MonoBehaviour
 		float rl = 1.0f/l;
 		float V = 2f;
 
-		float theta = (t * Mathf.PI * 0.1f);
+		float theta = (t * Mathf.PI * 0.05f);
 		float p0orgx = -width*0.5f;
 		float p0orgy = height*0.5f;
 		float p0x = p0orgx * Mathf.Cos(theta) - p0orgy * Mathf.Sin(theta);

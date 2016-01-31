@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour {
 							Input.GetKey(KeyCode.X) &&
 							Input.GetKey(KeyCode.C) &&
 							true) {
+							yield return new WaitForSeconds(0.25f);
 							UnityEngine.SceneManagement.SceneManager.LoadScene("main", 
 																			   UnityEngine.SceneManagement.LoadSceneMode.Single);
 							break;
