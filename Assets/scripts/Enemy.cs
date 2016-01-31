@@ -6,11 +6,13 @@ public class Enemy : MonoBehaviour {
 	public ElementType element_type_;
 	public AudioClip audioHit_;
 	public AudioClip audioGuard_;
+	public GameObject deadParticle_;
 	private AudioSource audio_source_;
 	private Vector3 speed_;
 	private Vector3 internal_speed_;
 	private PaperEffect paper_effect_;
 	private bool dead_;
+	private bool dead_effect_started_;
 
 	void Awake()
 	{
@@ -18,6 +20,7 @@ public class Enemy : MonoBehaviour {
 		paper_effect_ = GetComponent<PaperEffect>();
 		paper_effect_.setValue(1f);
 		dead_ = false;
+		dead_effect_started_ = false;
 	}
 
 	void Start ()
@@ -43,6 +46,22 @@ public class Enemy : MonoBehaviour {
 	{
 		set_speed(unit.speed_);
 		set_element_type(unit.element_type_);
+	}
+
+	private void dead_effect(float offset)
+	{
+		var go = Instantiate(deadParticle_, transform.position + Vector3.up*offset, Quaternion.identity) as GameObject;
+		switch (element_type_) {
+			case ElementType.Red:
+				go.GetComponent<ParticleSystem>().startColor = new Color(1f, 0.25f, 0.25f);
+				break;
+			case ElementType.Blue:
+				go.GetComponent<ParticleSystem>().startColor = new Color(0.25f, 0.25f, 1f);
+				break;
+			case ElementType.Green:
+				go.GetComponent<ParticleSystem>().startColor = new Color(0.25f, 1f, 0.25f);
+				break;
+		}
 	}
 
 	IEnumerator loop()
@@ -94,6 +113,11 @@ public class Enemy : MonoBehaviour {
 			if (roll_value < -1f) {
 				break;
 			}
+			if (!dead_effect_started_ && roll_value < -0.5f) {
+				dead_effect(0.4f);
+				dead_effect_started_ = true;
+			}
+
 			paper_effect_.setValue(roll_value);
 
 			if (Time.time - start_time > 0.5f) {
