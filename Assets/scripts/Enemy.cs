@@ -125,8 +125,8 @@ public class Enemy : MonoBehaviour {
 			if (roll_value < -1f) {
 				break;
 			}
-			if (!dead_effect_started_ && roll_value < -0.5f) {
-				dead_effect(0.4f);
+			if (!dead_effect_started_ && roll_value < -0.9f) {
+				dead_effect(0.4f /* offset */);
 				dead_effect_started_ = true;
 			}
 

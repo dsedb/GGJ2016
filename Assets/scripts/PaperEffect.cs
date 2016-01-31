@@ -65,8 +65,8 @@ public class PaperEffect : MonoBehaviour
 		}
 		prev_s = s;
 
-		const float R0 = 0.05f;
-		const float R1 = 0.06f;
+		const float R0 = 0.08f;
+		const float R1 = 0.09f;
 		float l = height;
 		float rl = 1.0f/l;
 		var vertices = new Vector3[X_NUM * Y_NUM];
