@@ -104,6 +104,7 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
+		GetComponent<Collider>().enabled = false;
 		roll_value = 0f;
 		paper_effect_.setValue(roll_value);
 		start_time = Time.time;

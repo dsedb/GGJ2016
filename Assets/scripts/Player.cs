@@ -129,13 +129,13 @@ public class Player : MonoBehaviour {
 
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.R)) {
+		if (Input.GetKeyDown(KeyCode.O)) {
 			select_red();
 		}
-		if (Input.GetKeyDown(KeyCode.F)) {
+		if (Input.GetKeyDown(KeyCode.K)) {
 			select_blue();
 		}
-		if (Input.GetKeyDown(KeyCode.V)) {
+		if (Input.GetKeyDown(KeyCode.M)) {
 			select_green();
 		}
 		// if (Input.GetKeyDown(KeyCode.V)) {
