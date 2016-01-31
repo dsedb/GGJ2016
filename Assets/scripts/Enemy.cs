@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour {
 	private bool dead_;
 	private bool dead_effect_started_;
 	private float spawn_time_;
+	private SpriteRenderer shadow_renderer_;
 
 	void Awake()
 	{
@@ -23,6 +24,8 @@ public class Enemy : MonoBehaviour {
 		dead_ = false;
 		dead_effect_started_ = false;
 		spawn_time_ = Time.time;
+		shadow_renderer_ = transform.Find("shadow").GetComponent<SpriteRenderer>();
+		shadow_renderer_.enabled = false;
 	}
 
 	void Start ()
@@ -91,6 +94,7 @@ public class Enemy : MonoBehaviour {
 			transform.Rotate(new Vector3(0f, 90f, 0f) * Time.deltaTime * 2f);
 		}
 		GetComponent<Collider>().enabled = true;
+		shadow_renderer_.enabled = true;
 
 		internal_speed_ = speed_;
 		for (;;) {
@@ -109,6 +113,7 @@ public class Enemy : MonoBehaviour {
 			}
 		}
 
+		shadow_renderer_.enabled = false;
 		GetComponent<Collider>().enabled = false;
 		roll_value = 0f;
 		paper_effect_.setValue(roll_value);
